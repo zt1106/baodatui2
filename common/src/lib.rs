@@ -1,16 +1,9 @@
+use card::Cards;
+
 pub mod card;
 
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+// static global data
+#[derive(Default)]
+pub struct CommonStatic {
+    pub cards: Cards,
 }
