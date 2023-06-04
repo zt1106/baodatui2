@@ -1,6 +1,6 @@
-use baodatui_common::CommonStatic;
+use baodatui_common::card::cards;
 
 fn main() {
-    let _a = CommonStatic::default();
+    dbg!(cards().by_id(1));
     println!("Hello, world!");
 }
