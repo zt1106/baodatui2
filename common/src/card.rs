@@ -15,10 +15,10 @@ pub enum Color {
 }
 #[derive(Debug, Sequence, Copy, Clone, PartialEq, Eq)]
 pub enum Suit {
-    DIAMONDS = 0,
-    CLUBS = 1,
-    HEARTS = 2,
-    SPADES = 3,
+    DIAMONDS,
+    CLUBS,
+    HEARTS,
+    SPADES,
 }
 
 impl Suit {
