@@ -1,3 +1,5 @@
+pub mod card;
+
 pub fn add(left: usize, right: usize) -> usize {
     left + right
 }

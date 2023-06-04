@@ -11,3 +11,4 @@ tokio = { version = "*", features = ["full"] }
 tokio-tungstenite = "*"
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
+rsocket_rust = "*"
