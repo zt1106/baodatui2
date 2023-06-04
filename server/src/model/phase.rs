@@ -7,7 +7,7 @@ use std::sync::OnceLock;
 #[allow(dead_code)]
 static PHASES: OnceLock<GamePhases> = OnceLock::new();
 
-pub fn cards() -> &'static GamePhases {
+pub fn phases() -> &'static GamePhases {
     PHASES.get_or_init(|| GamePhases { phases: vec![] })
 }
 

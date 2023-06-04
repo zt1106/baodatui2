@@ -1,9 +1,19 @@
 use std::{collections::HashMap, sync::Arc};
 
+use async_scoped::TokioScope;
 use baodatui_common::{ext::IntoArcTMutex, model::config::GameConfig};
 use tokio::{spawn, sync::Mutex};
 
 use super::user::User;
+
+use std::sync::OnceLock;
+
+#[allow(dead_code)]
+static GAME_MANAGER: OnceLock<GameManager> = OnceLock::new();
+
+pub fn game_manager() -> &'static GameManager {
+    GAME_MANAGER.get_or_init(|| GameManager::default())
+}
 
 pub struct Game {
     pub id: u32,
@@ -15,16 +25,12 @@ pub struct Game {
 
 #[derive(Default)]
 pub struct GameManager {
-    pub game_map: Arc<Mutex<HashMap<u32, Arc<Mutex<Game>>>>>,
+    pub game_map: HashMap<u32, Game>,
 }
 
 impl GameManager {
     async fn run(&mut self, game: Game) {
         let id: u32 = game.id;
-        let game_arc = game.to_arc_t_mutex();
-        let game_arc_cloned = game_arc.clone();
-        self.game_map.lock().await.insert(id, game_arc);
-        let game_map = self.game_map.clone();
-        spawn(async move { while !game_arc_cloned.lock().await.destroyed {} });
+        TokioScope::scope_and_block(|s| {})
     }
 }

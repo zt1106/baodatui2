@@ -14,3 +14,5 @@ serde_json = "*"
 rsocket_rust = "*"
 async-trait = "*"
 rand = "*"
+crossbeam = "*"
+async-scoped = {version = "*", features=["use-tokio"]}
