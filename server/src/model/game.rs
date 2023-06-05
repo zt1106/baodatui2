@@ -31,6 +31,5 @@ pub struct GameManager {
 impl GameManager {
     async fn run(&mut self, game: Game) {
         let id: u32 = game.id;
-        TokioScope::scope_and_block(|s| {})
     }
 }
