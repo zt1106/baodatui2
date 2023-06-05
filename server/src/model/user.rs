@@ -5,45 +5,36 @@ use tokio::sync::Mutex;
 
 use std::sync::OnceLock;
 
-#[allow(dead_code)]
-static USER_MANAGER: OnceLock<UserManager> = OnceLock::new();
+use crate::concurrent::{ArcMap, WithId};
 
-pub fn user_manager() -> &'static UserManager {
-    USER_MANAGER.get_or_init(|| UserManager::default())
+#[allow(dead_code)]
+static USER_MANAGER: OnceLock<ArcMap<User>> = OnceLock::new();
+
+pub fn user_manager() -> &'static ArcMap<User> {
+    USER_MANAGER.get_or_init(|| ArcMap::default())
 }
 
+#[derive(Default)]
 pub struct User {
     pub id: u32,
     pub nick_name: String,
 }
 
-#[derive(Default)]
-pub struct UserManager {
-    pub cur_id: u32,
-    pub user_map: HashMap<u32, Arc<Mutex<User>>>,
+impl WithId for User {
+    fn set_id(&mut self, id: u32) {
+        self.id = id;
+    }
+
+    fn id(&self) -> u32 {
+        self.id
+    }
 }
 
-impl UserManager {
-    pub fn by_id(&self, id: u32) -> Option<Arc<Mutex<User>>> {
-        let user_opt = &self.user_map.get(&id);
-        return match user_opt {
-            Some(user) => Some((*user).clone()),
-            None => None,
-        };
-    }
-
-    pub async fn remove_by_id(&mut self, id: u32) {
-        // TODO should remove in other places too
-        // what to do if user is in a game
-        let _ = self.user_map.remove(&id);
-    }
-
-    pub fn add(&mut self, nick_name: String) -> User {
-        self.cur_id += 1;
-        User {
-            id: self.cur_id,
-            nick_name,
-        }
+impl ArcMap<User> {
+    pub async fn add_user(&self) -> Arc<Mutex<User>> {
+        let mut user = User::default();
+        user.nick_name = create_random_chinese_name();
+        self.add(user).await
     }
 }
 
