@@ -1,18 +1,6 @@
-use std::{collections::HashMap, sync::Arc};
-
 use rand::Rng;
-use tokio::sync::Mutex;
 
-use std::sync::OnceLock;
-
-use crate::concurrent::{ArcMap, WithId};
-
-#[allow(dead_code)]
-static USER_MANAGER: OnceLock<ArcMap<User>> = OnceLock::new();
-
-pub fn user_manager() -> &'static ArcMap<User> {
-    USER_MANAGER.get_or_init(|| ArcMap::default())
-}
+use crate::container::arcmap::WithId;
 
 #[derive(Default)]
 pub struct User {
@@ -27,14 +15,6 @@ impl WithId for User {
 
     fn id(&self) -> u32 {
         self.id
-    }
-}
-
-impl ArcMap<User> {
-    pub async fn add_user(&self) -> Arc<Mutex<User>> {
-        let mut user = User::default();
-        user.nick_name = create_random_chinese_name();
-        self.add(user).await
     }
 }
 
