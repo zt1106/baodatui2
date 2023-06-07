@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use tokio::sync::{oneshot::error::RecvError, Mutex};
+use tokio::sync::Mutex;
 
 use crate::MyResult;
 

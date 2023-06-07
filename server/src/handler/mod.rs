@@ -1,5 +1,3 @@
-pub mod user_handler;
-
 use std::{
     collections::HashMap,
     future::Future,
@@ -20,23 +18,23 @@ use tokio::{
 };
 
 #[allow(dead_code)]
-static GLOBAL_HANDLER_MAP: OnceLock<GlobalHandlerMap> = OnceLock::new();
+static HANDLER_MANAGER: OnceLock<HandlerManager> = OnceLock::new();
 
-pub fn global_handler_map() -> &'static GlobalHandlerMap {
-    GLOBAL_HANDLER_MAP.get_or_init(|| GlobalHandlerMap::default())
+pub fn handler_manager() -> &'static HandlerManager {
+    HANDLER_MANAGER.get_or_init(|| HandlerManager::default())
 }
 
 type ReqValueAndId = (Value, u64);
 
 #[derive(Default)]
-pub struct GlobalHandlerMap {
+pub struct HandlerManager {
     req_id: Arc<Mutex<u64>>,
     req_sender_map: Arc<Mutex<HashMap<&'static str, UnboundedSender<ReqValueAndId>>>>,
     unfinished_resp_sender_map: Arc<Mutex<HashMap<u64, Sender<MyResult<Value>>>>>,
 }
 
-impl GlobalHandlerMap {
-    pub async fn handle_request(&self, value: Value, command: &'static str) -> MyResult<Value> {
+impl HandlerManager {
+    pub async fn handle_raw_request(&self, value: Value, command: &'static str) -> MyResult<Value> {
         let req_sender_map = self.req_sender_map.lock().await;
         let req_sender = req_sender_map.get(command).to_my_result()?;
         let (result_send, result_recv) = channel::<MyResult<Value>>();
