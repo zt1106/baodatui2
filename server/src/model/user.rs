@@ -1,21 +1,10 @@
+use baodatui_macros::ID;
 use rand::Rng;
 
-use crate::container::arcmap::WithId;
-
-#[derive(Default)]
+#[derive(Default, ID)]
 pub struct User {
     pub id: u32,
     pub nick_name: String,
-}
-
-impl WithId for User {
-    fn set_id(&mut self, id: u32) {
-        self.id = id;
-    }
-
-    fn id(&self) -> u32 {
-        self.id
-    }
 }
 
 pub fn create_random_chinese_name() -> String {

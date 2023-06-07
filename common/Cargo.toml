@@ -8,3 +8,5 @@ edition = "2021"
 [dependencies]
 enum-iterator = "*"
 tokio = { version = "*", features = ["rt", "io-util", "sync"] }
+serde = { version = "*", features = ["derive"] }
+serde_json = "*"

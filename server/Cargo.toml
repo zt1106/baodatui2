@@ -13,6 +13,7 @@ tokio-tungstenite = "*"
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
 rsocket_rust = "*"
+rsocket_rust_transport_websocket = "*"
 async-trait = "*"
 rand = "*"
 crossbeam = "*"
