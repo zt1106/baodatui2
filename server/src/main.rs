@@ -1,4 +1,6 @@
 #![feature(async_closure)]
+#![allow(unused_imports)]
+#![allow(unused)]
 pub mod handler;
 pub mod rsocket;
 

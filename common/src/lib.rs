@@ -1,3 +1,5 @@
+#![allow(unused_imports)]
+#![allow(unused)]
 pub mod card;
 pub mod comparator;
 pub mod ext;
