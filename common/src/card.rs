@@ -1,19 +1,22 @@
 use enum_iterator::{all, Sequence};
 use std::sync::OnceLock;
+use wasm_bindgen::prelude::wasm_bindgen;
 
 #[allow(dead_code)]
 static CARDS: OnceLock<Cards> = OnceLock::new();
 
 pub fn cards() -> &'static Cards {
-    CARDS.get_or_init(|| Cards::default())
+    CARDS.get_or_init(Cards::default)
 }
 
 #[derive(Debug, Copy, Clone, Sequence)]
+#[wasm_bindgen]
 pub enum Color {
     RED,
     BLACK,
 }
 #[derive(Debug, Sequence, Copy, Clone, PartialEq, Eq)]
+#[wasm_bindgen]
 pub enum Suit {
     DIAMONDS,
     CLUBS,
@@ -64,6 +67,7 @@ impl Cards {
 }
 
 #[derive(Debug)]
+#[wasm_bindgen]
 pub struct Card {
     pub intrinsic_id: u32,
     pub suit: Option<Suit>,

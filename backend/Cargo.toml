@@ -1,5 +1,5 @@
 [package]
-name = "baodatui-exec"
+name = "baodatui-backend"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,7 +7,6 @@ edition = "2021"
 
 [dependencies]
 baodatui-common = { path = "../common" }
-baodatui-backend = {path = "../backend"}
 baodatui-macros= {path = "../macros"}
 tokio = { version = "*", features = ["full"] }
 tokio-tungstenite = "*"

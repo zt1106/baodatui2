@@ -14,11 +14,9 @@ pub trait CardComparator {
         self.compare(None, id1, id2)
     }
 }
-
 pub struct CombimedComparator {
     comparator_vec: Vec<Box<dyn CardComparator>>,
 }
-
 impl CardComparator for CombimedComparator {
     fn compare(&self, prime_suit: Option<Suit>, id1: u32, id2: u32) -> i32 {
         for com in self.comparator_vec.iter() {
@@ -40,7 +38,6 @@ impl CardComparator for UniqueIdComparator {
 }
 #[derive(Default)]
 pub struct NaturalSuitOrderComparator;
-
 impl CardComparator for NaturalSuitOrderComparator {
     fn compare(&self, _prime_suit: Option<Suit>, id1: u32, id2: u32) -> i32 {
         let card1 = cards().by_id(id1);
@@ -54,7 +51,6 @@ impl CardComparator for NaturalSuitOrderComparator {
 }
 #[derive(Default)]
 pub struct RawPowerComparator;
-
 impl CardComparator for RawPowerComparator {
     fn compare(&self, _prime_suit: Option<Suit>, id1: u32, id2: u32) -> i32 {
         cards().by_id(id1).raw_power - cards().by_id(id2).raw_power

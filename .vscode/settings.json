@@ -1,0 +1,10 @@
+{
+    "rust-analyzer.linkedProjects": [
+        ".\\backend\\Cargo.toml",
+        ".\\server\\Cargo.toml",
+        ".\\common\\Cargo.toml",
+        ".\\wasm\\Cargo.toml",
+        ".\\macros\\Cargo.toml",
+    ],
+    "rust-analyzer.showUnlinkedFileNotification": false
+}

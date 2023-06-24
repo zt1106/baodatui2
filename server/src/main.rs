@@ -1,10 +1,10 @@
 #![feature(async_closure)]
-pub mod container;
 pub mod handler;
-pub mod model;
 pub mod rsocket;
 
 use baodatui_common::card::cards;
+
+// TODO should separate server and backend, so backend can be used directly for RL training
 
 #[tokio::main]
 async fn main() {
