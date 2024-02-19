@@ -9,7 +9,7 @@ function App(props: AppProps) {
   let rsocket = props.rsocket;
   const requester = rsocket.requestStream(
     {
-      data: Buffer.from("Hello World"),
+      data: Buffer.from("Hello World1"),
     },
     3,
     {
